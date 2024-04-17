@@ -1,5 +1,4 @@
 # App_SimpleBox
-# Rsc-Neo4J
 
 ## 壹、運用構想
 
