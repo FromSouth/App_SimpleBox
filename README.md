@@ -11,8 +11,10 @@
 
 * Repo提供一個bash script。
 * 以ROOT權限執行後可
-  * 自動建立一資料庫(含可被injection之服務)
-
+  * 自動建立一資料庫(含可被injection之服務)、資料庫管理系統。
+  * 可被提權之定時執行程式。
+* 使用者可以此設定後之VM或DockerContainer，作為練習SQL injection及提權靶機
+  
 ### 三、運作流程
 
 * 將bash script複製到Ubuntu的VM或DockerContainer中。
