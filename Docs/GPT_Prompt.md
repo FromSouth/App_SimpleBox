@@ -1,10 +1,12 @@
-please write a bash so that I can use it to set a Ubuntu OS, which has following properties:
+please write a "bash" so that I can use it to set a Ubuntu OS, which has following properties:
 
 # User Guide
 * Explain how to build and run image at the beginning of the docker file
 
 # OS setting
 *  small size of Linux Ubuntu
+*  set up a mysql database, which content sql injection exploit
+*  set up a phpmyadmin, version 4.8.1
 
 # Game Management Setting
 * * add a new user, gm with password "gm". And add him to root group.
