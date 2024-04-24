@@ -32,6 +32,7 @@
 # ChatGPT回復格式
 
 ## 注意事項：
+  * do not assume that any work or any download and setup steps have been completed
   * segment  code exactly according what I mention in  [# 需求項目]
   * echo empty line between segments.
   * This script will be run in Ubuntu container by root, don't use sudo.
