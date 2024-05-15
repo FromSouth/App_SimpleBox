@@ -1,6 +1,7 @@
 # App_SimpleBox
 
 ![Static Badge](https://img.shields.io/badge/Machine-pwnable-blue)
+![Static Badge](https://img.shields.io/badge/LICENSE-MIT-green)
 
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![Shell Script](https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white)
