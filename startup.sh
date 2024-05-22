@@ -2,7 +2,7 @@
 
 IMAGE_NAME="dockeryolo"
 CONTAINER_NAME="dockeryolo_container"
-DOCKERFILE_PATH="."
+DOCKERFILE_PATH="./Data/"
 
 # Build Docker image
 docker build -t "$IMAGE_NAME" "$DOCKERFILE_PATH"
