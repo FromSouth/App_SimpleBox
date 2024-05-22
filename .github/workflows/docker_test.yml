@@ -16,6 +16,11 @@ jobs:
         options: --privileged
         ports:
           - 2375:2375
+        healthcheck:
+          test: ["CMD", "docker", "info"]
+          interval: 10s
+          timeout: 5s
+          retries: 5
 
     steps:
     - name: Checkout repository
@@ -26,7 +31,12 @@ jobs:
 
     - name: Set up Docker environment
       run: |
-        echo "DOCKER_HOST=tcp://localhost:2375" >> $GITHUB_ENV
+        echo "DOCKER_HOST=tcp://docker:2375" >> $GITHUB_ENV
+
+    - name: Debug Docker setup
+      run: |
+        docker info
+        curl http://docker:2375/_ping
 
     - name: Build Docker image
       run: |
@@ -42,7 +52,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install python3-pip -y
-        pip install pytest docker
+        pip3 install pytest docker
 
     - name: Run tests
       run: |
