@@ -13,7 +13,7 @@ jobs:
     - name: Package
       run: |
         mkdir release
-        cp LICENSE README.md Data/dockerfile startup.sh release/
+        cp LICENSE README.md Data/Dockerfile startup.sh release/
         zip -r release.zip release/
 
     - name: Upload Release Package
@@ -26,7 +26,7 @@ jobs:
       run: |
         cp -R release deployment
         cd deployment
-        docker build -t dockeryolo -f Data/dockerfile .
+        docker build -t dockeryolo -f Data/Dockerfile .
         docker run -d \
           --name "dockerWorking" \
           -p 21:21 \
