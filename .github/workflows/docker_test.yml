@@ -1,55 +1,44 @@
-name: Docker CI
+name: Module Test
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push, pull_request]
 
 jobs:
-  build_and_test:
+  build:
     runs-on: ubuntu-latest
-
-    services:
-      docker:
-        image: docker:dind
-        options: --privileged
-        ports:
-          - 2375:2375
-
+    
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
-
-    - name: Set up Docker environment
+    - name: Package
       run: |
-        echo "DOCKER_HOST=tcp://localhost:2375" >> $GITHUB_ENV
+        mkdir release
+        cp LICENSE README.md Data/dockerfile startup.sh release/
+        zip -r release.zip release/
 
-    - name: Build Docker image
-      run: |
-        cd Data
-        docker build -t dockeryolo .
+    - name: Upload Release Package
+      uses: actions/upload-artifact@v2
+      with:
+        name: release
+        path: release.zip
 
-    - name: Run Docker container
+    - name: Deploy
       run: |
-        docker run --name dockeryolo_container -d \
-        -p 21:21 -p 4470:4470 -p 40000-40100:40000-40100 yourusername/dockeryolo
+        cp -R release deployment
+        cd deployment
+        docker build -t dockeryolo -f Data/dockerfile .
+        docker run -d \
+          --name "dockerWorking" \
+          -p 21:21 \
+          -p 4470:4470 \
+          -p 40000-40100:40000-40100 \
+          dockeryolo
 
-    - name: Install Python and dependencies
+    - name: Test
       run: |
-        sudo apt-get update
-        sudo apt-get install python3-pip -y
-        pip3 install pytest docker
+        cp -R scr_Box_test test
+        cd test
+        pip install pipenv
+        pipenv install
+        pipenv run pytest
 
-    - name: Run tests
-      run: |
-        cd Data
-        pytest test_docker_env.py
-
-    - name: Cleanup
-      run: |
-        docker stop dockeryolo_container
-        docker rm dockeryolo_container
