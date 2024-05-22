@@ -16,11 +16,6 @@ jobs:
         options: --privileged
         ports:
           - 2375:2375
-        healthcheck:
-          test: ["CMD", "docker", "info"]
-          interval: 10s
-          timeout: 5s
-          retries: 5
 
     steps:
     - name: Checkout repository
@@ -31,22 +26,23 @@ jobs:
 
     - name: Set up Docker environment
       run: |
-        echo "DOCKER_HOST=tcp://docker:2375" >> $GITHUB_ENV
+        echo "DOCKER_HOST=tcp://localhost:2375" >> $GITHUB_ENV
 
-    - name: Debug Docker setup
+    - name: Wait for Docker to be ready
       run: |
-        docker info
-        curl http://docker:2375/_ping
+        for i in {1..30}; do
+          docker info && break || sleep 10
+        done
 
     - name: Build Docker image
       run: |
         cd Data
-        docker build -t yourusername/dockeryolo .
+        docker build -t dockeryolo .
 
     - name: Run Docker container
       run: |
         docker run --name dockeryolo_container -d \
-        -p 21:21 -p 4470:4470 -p 40000-40100:40000-40100 yourusername/dockeryolo
+        -p 21:21 -p 4470:4470 -p 40000-40100:40000-40100 dockeryolo
 
     - name: Install Python and dependencies
       run: |
