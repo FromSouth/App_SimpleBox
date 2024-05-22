@@ -6,13 +6,13 @@ RUN apt-get update && apt-get upgrade -y &&\
     useradd -m user && echo "user:password" | chpasswd &&\
     mkdir /home/ftp && chown nobody:nogroup /home/ftp
 
-COPY ./Data/xxyolo_xinet.conf /etc/xinetd.d/xxyolo
-COPY ./Data/vsftpd.conf /etc/vsftpd.conf
-COPY ./Data/xxyolo /home/xxyolo
-COPY ./Data/xxyolo /home/ftp
-COPY ./Data/libc.so.6 /home/xxyolo
-COPY ./Data/libc.so.6 /home/ftp
-COPY ./Data/flag.txt /home/xxyolo/flag.txt
+COPY ./xxyolo_xinet.conf /etc/xinetd.d/xxyolo
+COPY ./vsftpd.conf /etc/vsftpd.conf
+COPY ./xxyolo /home/xxyolo
+COPY ./xxyolo /home/ftp
+COPY ./libc.so.6 /home/xxyolo
+COPY ./libc.so.6 /home/ftp
+COPY ./flag.txt /home/xxyolo/flag.txt
 
 RUN chown xxyolo:xxyolo /home/xxyolo/xxyolo /home/xxyolo/libc.so.6 &&\
     chown nobody:nogroup /home/ftp/xxyolo /home/ftp/libc.so.6 &&\
